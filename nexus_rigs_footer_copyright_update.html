@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS RIGS | Next-Gen Gaming Hardware & Upgrades</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Rajdhani for esports aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        cyber: {
+                            dark: '#030605',
+                            surface: '#070d0a',
+                            card: '#0b1410',
+                            hover: '#0e1a14',
+                            green: '#10b981',
+                            emerald: '#34d399',
+                            neon: '#22c55e',
+                            blue: '#38bdf8',
+                            cobalt: '#0284c7',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg-obsidian: #030605;
+            --bg-surface: #070d0a;
+            --bg-card: #0b1410;
+            --bg-hover: #0e1a14;
+            --accent-green: #10b981;
+            --accent-emerald: #34d399;
+            --accent-blue: #38bdf8;
+            --border-green: rgba(16, 185, 129, 0.28);
+            --border-emerald: rgba(52, 211, 153, 0.35);
+            --border-blue-subtle: rgba(56, 189, 248, 0.16);
+        }
+        @keyframes kenBurnsDrift {
+            0% { transform: scale(1.02) translate3d(0, 0, 0); }
+            50% { transform: scale(1.09) translate3d(-1.2%, -0.8%, 0); }
+            100% { transform: scale(1.02) translate3d(0, 0, 0); }
+        }
+        .animate-ken-burns {
+            animation: kenBurnsDrift 28s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-[#030605] text-emerald-50 font-sans antialiased selection:bg-emerald-400 selection:text-[#021209] overflow-x-hidden">
+
+    <!-- Dynamic Category Crossfade Background Layer -->
+    <div id="dynamic-bg-layer" class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <!-- Fallback Pitch Black & Emerald Base -->
+        <div id="bg-base-gradient" class="absolute inset-0 bg-gradient-to-br from-[#030605] via-[#06120c] to-[#030605] transition-colors duration-700"></div>
+
+        <!-- Dual Image Crossfade Buffers -->
+        <img
+            id="bg-layer-a"
+            src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=2000&q=80"
+            alt=""
+            aria-hidden="true"
+            class="absolute inset-0 w-full h-full object-cover opacity-35 transition-opacity duration-700 ease-in-out animate-ken-burns"
+        >
+        <img
+            id="bg-layer-b"
+            src=""
+            alt=""
+            aria-hidden="true"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 ease-in-out animate-ken-burns"
+        >
+
+        <!-- Deep Pitch Black Vignette Overlay for Crisp Card & Text Legibility -->
+        <div id="bg-vignette-overlay" class="absolute inset-0 transition-opacity duration-500" style="background: radial-gradient(circle at 50% 20%, rgba(3, 6, 5, 0.72) 0%, rgba(3, 6, 5, 0.91) 65%, rgba(3, 6, 5, 0.98) 100%);"></div>
+
+        <!-- Category-Reactive Ambient Emerald-First & Subtle Blue Glow Orbs -->
+        <div id="bg-glow-primary" class="absolute -top-40 -left-40 w-[34rem] h-[34rem] bg-emerald-500/25 rounded-full blur-3xl transition-colors duration-700"></div>
+        <div id="bg-glow-secondary" class="absolute top-1/3 -right-40 w-[32rem] h-[32rem] bg-green-500/20 rounded-full blur-3xl transition-colors duration-700"></div>
+        <div id="bg-glow-tertiary" class="absolute bottom-0 left-1/3 w-[28rem] h-[28rem] bg-sky-500/10 rounded-full blur-3xl transition-colors duration-700"></div>
+    </div>
+
+    <!-- Floating Backdrop Theme HUD Pill (Bottom-Left) -->
+    <div id="backdropHud" class="fixed bottom-4 left-4 z-40 hidden sm:flex items-center gap-2.5 bg-[#070d0a]/92 backdrop-blur-xl border border-emerald-500/30 rounded-2xl px-3.5 py-2 shadow-2xl shadow-emerald-950/60">
+        <span id="backdropStatusDot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+        <div class="text-[11px] leading-tight">
+            <span class="text-emerald-200/60 uppercase tracking-wider font-semibold">Backdrop:</span>
+            <span id="backdropThemeLabel" class="text-emerald-50 font-bold ml-1">ALL HARDWARE • EMERALD RIG</span>
+        </div>
+        <button
+            onclick="cycleBackdropIntensity()"
+            id="backdropIntensityBtn"
+            title="Switch background photography intensity"
+            class="ml-1 px-2.5 py-1 rounded-lg bg-[#0b1410] hover:bg-[#0e1a14] border border-emerald-500/35 text-[10px] font-bold uppercase tracking-wider text-emerald-300 transition-colors">
+            Subtle
+        </button>
+    </div>
+
+    <!-- Top Announcement Bar -->
+    <div class="relative z-20 bg-gradient-to-r from-[#041d14] via-[#070d0a] to-[#051a14] border-b border-emerald-500/25 text-xs py-2 px-4 text-center text-emerald-300 font-medium tracking-wide">
+        <span class="inline-flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            FREE SAME-DAY NAIROBI DELIVERY ON ORDERS OVER KSh 25,000 • USE CODE <strong class="text-white bg-emerald-500/20 border border-emerald-400/40 px-1.5 py-0.5 rounded">NEXUS10</strong> FOR 10% OFF
+        </span>
+    </div>
+
+    <!-- Sticky Glassmorphism Navigation Header -->
+    <header class="sticky top-0 z-30 bg-[#030605]/88 backdrop-blur-xl border-b border-emerald-500/25">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20 gap-4">
+                
+                <!-- Brand Logo -->
+                <a href="#" onclick="resetFilters()" class="flex items-center gap-2.5 group shrink-0">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 via-green-500 to-sky-400 p-0.5 shadow-lg shadow-emerald-500/25 group-hover:shadow-emerald-400/40 transition-all">
+                        <div class="w-full h-full bg-[#030605] rounded-[10px] flex items-center justify-center">
+                            <i data-lucide="cpu" class="w-5 h-5 text-emerald-400"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="font-display font-bold text-2xl tracking-wider bg-gradient-to-r from-emerald-300 via-emerald-400 to-green-300 bg-clip-text text-transparent">NEXUS<span class="text-emerald-400">RIGS</span></span>
+                        <span class="hidden sm:block text-[10px] uppercase tracking-[0.2em] text-emerald-400/75 -mt-1">Black &amp; Emerald Lab</span>
+                    </div>
+                </a>
+
+                <!-- Search Bar (Desktop & Tablet) -->
+                <div class="hidden md:flex flex-1 max-w-md mx-4">
+                    <div class="relative w-full group">
+                        <i data-lucide="search" class="w-4 h-4 text-emerald-500/70 absolute left-3.5 top-1/2 -translate-y-1/2 group-focus-within:text-emerald-400 transition-colors"></i>
+                        <input 
+                            type="text" 
+                            id="searchInput"
+                            placeholder="Search RTX 5090, Ryzen 9, OLED monitors, keyboards..." 
+                            class="w-full bg-[#070d0a]/95 border border-emerald-500/25 rounded-xl pl-10 pr-4 py-2.5 text-sm text-emerald-50 placeholder-emerald-200/35 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400 transition-all"
+                        >
+                    </div>
+                </div>
+
+                <!-- Right Controls: Currency Badge + Cart Button -->
+                <div class="flex items-center gap-2.5 sm:gap-3">
+                    <!-- Native Kenyan Shillings Indicator -->
+                    <div class="hidden sm:flex items-center gap-1.5 bg-[#070d0a]/95 border border-emerald-500/25 rounded-xl px-3 py-2 text-xs font-semibold text-emerald-400">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        <span>KE • KSh</span>
+                    </div>
+
+                    <!-- Cart Drawer Trigger -->
+                    <button onclick="toggleCart(true)" class="relative flex items-center gap-2 bg-[#070d0a] hover:bg-[#0e1a14] border border-emerald-500/30 hover:border-emerald-400/70 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all group">
+                        <i data-lucide="shopping-cart" class="w-5 h-5 text-emerald-400 group-hover:scale-110 transition-all"></i>
+                        <span class="hidden sm:inline text-emerald-50">Cart</span>
+                        <span id="cartBadge" class="bg-gradient-to-r from-emerald-400 to-green-500 text-[#021209] text-xs font-bold px-2 py-0.5 rounded-full min-w-[22px] text-center shadow">
+                            0
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Search Bar -->
+            <div class="md:hidden pb-3">
+                <div class="relative w-full">
+                    <i data-lucide="search" class="w-4 h-4 text-emerald-500/70 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                    <input 
+                        type="text" 
+                        id="mobileSearchInput"
+                        placeholder="Search GPUs, CPUs, peripherals..." 
+                        class="w-full bg-[#070d0a]/95 border border-emerald-500/25 rounded-xl pl-10 pr-4 py-2 text-sm text-emerald-50 placeholder-emerald-200/35 focus:outline-none focus:border-emerald-400"
+                    >
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner Section -->
+    <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <div class="relative overflow-hidden rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-[#070d0a]/92 via-[#06140d]/88 to-[#030605]/96 backdrop-blur-md shadow-2xl shadow-emerald-950/50">
+            <!-- Decorative Grid Pattern -->
+            <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:20px_20px]"></div>
+            <div class="absolute -top-24 right-10 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 left-10 w-80 h-80 bg-green-500/15 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-10 lg:p-12">
+                <div class="lg:col-span-7 space-y-5">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 text-xs font-semibold uppercase tracking-wider">
+                            <i data-lucide="zap" class="w-3.5 h-3.5 text-emerald-400"></i>
+                            2026 Stealth Black &amp; Emerald Hardware Drop
+                        </div>
+                        <button onclick="cycleBackdropIntensity()" class="sm:hidden inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#070d0a]/90 border border-emerald-500/30 text-emerald-200 text-[11px] font-semibold">
+                            <i data-lucide="image" class="w-3 h-3 text-emerald-400"></i>
+                            <span id="mobileBackdropLabel">Backdrop: Subtle</span>
+                        </button>
+                    </div>
+                    <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
+                        UNLEASH MAXIMUM <br>
+                        <span class="bg-gradient-to-r from-emerald-300 via-emerald-400 to-green-300 bg-clip-text text-transparent">FRAME RATES &amp; PRECISION</span>
+                    </h1>
+                    <p class="text-emerald-100/75 text-sm sm:text-base max-w-xl leading-relaxed">
+                        Upgrade your battlestation with next-gen ray-tracing GPUs, 3D V-Cache processors, 360Hz QD-OLED displays, and ultra-lightweight wireless esports gear.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-3 pt-2">
+                        <a href="#catalog" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-400 via-emerald-500 to-green-500 hover:brightness-110 text-[#021209] font-bold text-sm shadow-lg shadow-emerald-500/25 transition-all">
+                            Shop All 35 Upgrades
+                            <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+                        </a>
+                        <button onclick="filterCategory('GPUs')" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#0b1410]/90 hover:bg-[#0e1a14] border border-emerald-500/35 text-emerald-200 font-semibold text-sm transition-all">
+                            Explore GPUs
+                        </button>
+                        <button onclick="filterCategory('Consoles & VR')" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#0b1410]/90 hover:bg-[#0e1a14] border border-sky-500/25 text-sky-300 font-semibold text-sm transition-all">
+                            Consoles &amp; VR
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hero Featured Showcase Card -->
+                <div class="lg:col-span-5">
+                    <div class="relative rounded-2xl bg-[#070d0a]/90 backdrop-blur-md border border-emerald-500/30 p-4 shadow-xl">
+                        <div class="relative h-52 sm:h-60 rounded-xl overflow-hidden bg-[#030605]">
+                            <img 
+                                src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=900&q=80" 
+                                alt="Custom Liquid Cooled Gaming PC" 
+                                onerror="handleImageError(this, 'GPUs', 'NEXUS FLAGSHIP RIG')"
+                                class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-500"
+                            >
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#030605] via-transparent to-transparent"></div>
+                            <span class="absolute top-3 left-3 bg-gradient-to-r from-emerald-500 to-green-600/95 backdrop-blur text-[#021209] text-[11px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider border border-emerald-300/40">
+                                Editor's Pick
+                            </span>
+                            <div class="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+                                <div>
+                                    <p class="text-xs text-sky-300 font-semibold">Ultimate 4K Ray-Tracing</p>
+                                    <p class="text-base font-bold text-white">RTX 5090 Founders Edition</p>
+                                </div>
+                                <span id="heroFeaturedPrice" class="text-lg font-display font-bold text-emerald-300 bg-[#030605]/95 px-2.5 py-1 rounded-lg border border-emerald-400/40">
+                                    KSh 345,000
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Catalog Section -->
+    <main id="catalog" class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        
+        <!-- Filter & Sort Bar -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-emerald-500/25">
+            <!-- Category Pills -->
+            <div id="categoryTabs" class="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 no-scrollbar">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <!-- Brand Filter, Sort & Results Count -->
+            <div class="flex flex-wrap items-center justify-between lg:justify-end gap-2.5 shrink-0">
+                <span id="resultsCount" class="text-xs text-emerald-200/60 font-medium mr-1">Showing 35 items</span>
+                <div class="relative">
+                    <select id="brandSelect" onchange="renderProducts()" class="appearance-none bg-[#070d0a] border border-emerald-500/30 rounded-xl pl-3.5 pr-9 py-2 text-xs sm:text-sm text-emerald-50 focus:outline-none focus:border-emerald-400 cursor-pointer">
+                        <option value="ALL">Brand: All</option>
+                    </select>
+                    <i data-lucide="chevron-down" class="w-4 h-4 text-emerald-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                </div>
+                <div class="relative">
+                    <select id="sortSelect" onchange="renderProducts()" class="appearance-none bg-[#070d0a] border border-emerald-500/30 rounded-xl pl-3.5 pr-9 py-2 text-xs sm:text-sm text-emerald-50 focus:outline-none focus:border-emerald-400 cursor-pointer">
+                        <option value="featured">Sort: Featured</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="rating">Highest Rated</option>
+                    </select>
+                    <i data-lucide="chevron-down" class="w-4 h-4 text-emerald-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-8">
+            <!-- Product cards rendered here via JS -->
+        </div>
+
+        <!-- Empty Search State -->
+        <div id="emptyState" class="hidden text-center py-20 px-4">
+            <div class="w-16 h-16 rounded-2xl bg-[#070d0a] border border-emerald-500/30 flex items-center justify-center mx-auto mb-4 text-emerald-400">
+                <i data-lucide="search-x" class="w-8 h-8"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">No matching hardware found</h3>
+            <p class="text-sm text-emerald-200/60 mb-4">Try adjusting your search keywords or clearing category filters.</p>
+            <button onclick="resetFilters()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-green-500 hover:brightness-110 text-[#021209] font-bold text-sm transition-all">
+                Reset All Filters
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 border-t border-emerald-500/25 bg-[#030605]/96 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="cpu" class="w-5 h-5 text-emerald-400"></i>
+                    <span class="font-display font-bold text-xl tracking-wider text-white">NEXUS<span class="text-emerald-400">RIGS</span></span>
+                </div>
+                <p class="text-xs text-emerald-100/60 leading-relaxed">
+                    Authorized reseller of enthusiast PC components, custom peripherals, and esports-grade displays. Fast global &amp; local dispatch.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-300 mb-3">Components</h4>
+                <ul class="space-y-2 text-xs text-emerald-100/65">
+                    <li><button onclick="filterCategory('GPUs')" class="hover:text-emerald-400 transition-colors">Graphics Cards (GPUs)</button></li>
+                    <li><button onclick="filterCategory('CPUs')" class="hover:text-emerald-400 transition-colors">Processors (CPUs)</button></li>
+                    <li><button onclick="filterCategory('RAM & Storage')" class="hover:text-emerald-400 transition-colors">DDR5 RAM &amp; NVMe SSDs</button></li>
+                    <li><button onclick="filterCategory('Motherboards & Cooling')" class="hover:text-emerald-400 transition-colors">Motherboards &amp; AIO Coolers</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-300 mb-3">Peripherals &amp; Displays</h4>
+                <ul class="space-y-2 text-xs text-emerald-100/65">
+                    <li><button onclick="filterCategory('Monitors')" class="hover:text-emerald-400 transition-colors">OLED &amp; 240Hz Gaming Monitors</button></li>
+                    <li><button onclick="filterCategory('Peripherals')" class="hover:text-emerald-400 transition-colors">Hall-Effect Keyboards, Mice &amp; Pads</button></li>
+                    <li><button onclick="filterCategory('Audio & Streaming')" class="hover:text-emerald-400 transition-colors">Wireless Headsets, Mics &amp; Stream Decks</button></li>
+                    <li><button onclick="filterCategory('Consoles & VR')" class="hover:text-sky-300 transition-colors">PS5 Pro, Handhelds &amp; VR Headsets</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-300 mb-3">Buyer Protection</h4>
+                <ul class="space-y-2 text-xs text-emerald-100/65">
+                    <li class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> 3-Year Local &amp; Manufacturer Warranty</li>
+                    <li class="flex items-center gap-2"><i data-lucide="truck" class="w-4 h-4 text-sky-400"></i> Same-Day Nairobi &amp; Next-Day Countrywide</li>
+                    <li class="flex items-center gap-2"><i data-lucide="smartphone" class="w-4 h-4 text-emerald-400"></i> Instant M-Pesa STK Push &amp; Cards</li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-8 pt-6 border-t border-emerald-500/20 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-emerald-200/65">
+            <span>@copyright | RTK | 2026</span>
+            <span>NEXUS RIGS • Gaming Hardware &amp; Upgrades</span>
+        </div>
+    </footer>
+
+    <!-- Product Quick-View Modal -->
+    <div id="quickViewModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-[#030605]/88 backdrop-blur-md">
+        <div class="relative w-full max-w-3xl bg-[#070d0a] border border-emerald-500/35 rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <button onclick="closeQuickView()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-xl bg-[#0b1410]/95 hover:bg-[#0e1a14] text-emerald-200 hover:text-white flex items-center justify-center border border-emerald-500/30 transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div id="quickViewContent" class="grid grid-cols-1 md:grid-cols-2">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Shopping Cart Slide-Over Drawer -->
+    <div id="cartDrawerOverlay" onclick="toggleCart(false)" class="fixed inset-0 z-50 hidden bg-[#030605]/82 backdrop-blur-sm transition-opacity"></div>
+    <aside id="cartDrawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-[#050a08] border-l border-emerald-500/30 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <!-- Drawer Header -->
+        <div class="flex items-center justify-between p-5 border-b border-emerald-500/25">
+            <div class="flex items-center gap-2.5">
+                <i data-lucide="shopping-bag" class="w-5 h-5 text-emerald-400"></i>
+                <h2 class="font-display text-xl font-bold text-white tracking-wide">YOUR RIG CART</h2>
+            </div>
+            <button onclick="toggleCart(false)" class="p-2 rounded-xl bg-[#0b1410] hover:bg-[#0e1a14] text-emerald-200/70 hover:text-white border border-emerald-500/25 transition-colors">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Free Nairobi Delivery Progress Bar -->
+        <div id="deliveryProgressBanner" class="px-5 py-3 bg-[#070d0a]/95 border-b border-emerald-500/20">
+            <div class="flex items-center justify-between text-xs mb-1.5">
+                <span id="deliveryProgressText" class="text-emerald-100/80 font-medium">Add KSh 25,000 more for FREE Nairobi delivery</span>
+                <span id="deliveryProgressPct" class="text-emerald-400 font-bold">0%</span>
+            </div>
+            <div class="w-full h-1.5 bg-[#0b1410] rounded-full overflow-hidden">
+                <div id="deliveryProgressBar" class="h-full bg-gradient-to-r from-emerald-400 to-green-400 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-5 space-y-4">
+            <!-- Cart items rendered dynamically -->
+        </div>
+
+        <!-- Cart Footer (Promo Code + Totals + Checkout) -->
+        <div id="cartFooter" class="border-t border-emerald-500/25 bg-[#070d0a]/85 p-5 space-y-4">
+            <!-- Promo Code Input -->
+            <div>
+                <div class="flex gap-2">
+                    <input 
+                        type="text" 
+                        id="promoInput" 
+                        placeholder="Promo code (try NEXUS10)" 
+                        class="flex-1 bg-[#030605] border border-emerald-500/25 rounded-xl px-3.5 py-2 text-xs text-white placeholder-emerald-200/35 uppercase focus:outline-none focus:border-emerald-400"
+                    >
+                    <button onclick="applyPromoCode()" class="px-4 py-2 rounded-xl bg-[#0b1410] hover:bg-[#0e1a14] border border-emerald-500/35 text-xs font-semibold text-emerald-300 transition-colors">
+                        Apply
+                    </button>
+                </div>
+                <p id="promoFeedback" class="text-[11px] mt-1.5 hidden"></p>
+            </div>
+
+            <!-- Totals Breakdown -->
+            <div class="space-y-1.5 text-sm border-t border-emerald-500/15 pt-3">
+                <div class="flex justify-between text-emerald-100/65">
+                    <span>Subtotal</span>
+                    <span id="cartSubtotal" class="font-medium text-emerald-50">KSh 0</span>
+                </div>
+                <div id="discountRow" class="hidden justify-between text-emerald-400">
+                    <span>Discount (10%)</span>
+                    <span id="cartDiscount">-KSh 0</span>
+                </div>
+                <div class="flex justify-between text-emerald-100/65">
+                    <span>Nairobi / Countrywide Delivery</span>
+                    <span id="cartShipping" class="font-medium text-emerald-300">FREE</span>
+                </div>
+                <div class="flex justify-between text-base font-bold text-white pt-2 border-t border-emerald-500/25">
+                    <span>Total</span>
+                    <span id="cartTotal" class="font-display text-xl text-emerald-400">KSh 0</span>
+                </div>
+            </div>
+
+            <button onclick="openCheckoutModal()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-400 via-emerald-500 to-green-500 hover:brightness-110 text-[#021209] font-bold text-sm shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 transition-all">
+                <span>Proceed to Checkout</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Mock Checkout Modal -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-[#030605]/88 backdrop-blur-md">
+        <div class="relative w-full max-w-lg bg-[#070d0a] border border-emerald-500/35 rounded-3xl shadow-2xl p-6 sm:p-8">
+            <button onclick="closeCheckoutModal()" class="absolute top-5 right-5 p-2 rounded-xl bg-[#0b1410] text-emerald-200/70 hover:text-white border border-emerald-500/25">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div id="checkoutFormView">
+                <div class="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">
+                    <i data-lucide="lock" class="w-3.5 h-3.5 text-emerald-400"></i> Encrypted Express Checkout
+                </div>
+                <h3 class="font-display text-2xl font-bold text-white mb-5">Complete Your Order</h3>
+
+                <form onsubmit="submitOrder(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-emerald-100/70 mb-1">Full Name</label>
+                            <input type="text" required placeholder="Brian Kamau" class="w-full bg-[#030605] border border-emerald-500/25 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-emerald-100/70 mb-1">Email Address</label>
+                            <input type="email" required placeholder="gamer@nexusrigs.co.ke" class="w-full bg-[#030605] border border-emerald-500/25 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-400">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-emerald-100/70 mb-1">Shipping Destination (Nairobi / Countrywide)</label>
+                        <input type="text" required placeholder="Westlands Square, Ring Road Parklands, Nairobi" class="w-full bg-[#030605] border border-emerald-500/25 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-400">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-emerald-100/70 mb-1.5">Payment Method</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="payMethod" value="mpesa" checked onchange="toggleMpesaPhone(true)" class="peer sr-only">
+                                <div class="p-2.5 rounded-xl bg-[#030605] border border-emerald-900/60 peer-checked:border-emerald-400 peer-checked:bg-emerald-500/15 text-center text-xs font-semibold text-emerald-50">
+                                    M-Pesa STK Push
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="payMethod" value="card" onchange="toggleMpesaPhone(false)" class="peer sr-only">
+                                <div class="p-2.5 rounded-xl bg-[#030605] border border-emerald-900/60 peer-checked:border-sky-400 peer-checked:bg-sky-500/15 text-center text-xs font-semibold text-emerald-50">
+                                    Credit / Debit Card
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="payMethod" value="bank" onchange="toggleMpesaPhone(false)" class="peer sr-only">
+                                <div class="p-2.5 rounded-xl bg-[#030605] border border-emerald-900/60 peer-checked:border-emerald-400 peer-checked:bg-emerald-500/15 text-center text-xs font-semibold text-emerald-50">
+                                    Bank Transfer
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="mpesaPhoneField">
+                        <label class="block text-xs text-emerald-100/70 mb-1">M-Pesa Phone Number (for STK Prompt)</label>
+                        <input type="tel" id="mpesaPhoneInput" required placeholder="0712 345 678" class="w-full bg-[#030605] border border-emerald-500/35 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-400">
+                    </div>
+
+                    <div class="p-3.5 rounded-xl bg-[#030605] border border-emerald-500/25 flex items-center justify-between">
+                        <span class="text-xs text-emerald-100/70">Amount Due (KES)</span>
+                        <span id="checkoutAmountDue" class="font-display text-xl font-bold text-emerald-400">KSh 0</span>
+                    </div>
+
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-400 via-emerald-500 to-green-500 text-[#021209] font-bold text-sm shadow-lg shadow-emerald-500/25 hover:brightness-110 transition-all">
+                        Confirm &amp; Place Order
+                    </button>
+                </form>
+            </div>
+
+            <!-- Order Success View -->
+            <div id="checkoutSuccessView" class="hidden text-center py-6 space-y-4">
+                <div class="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-400 flex items-center justify-center mx-auto">
+                    <i data-lucide="check-circle-2" class="w-9 h-9"></i>
+                </div>
+                <h3 class="font-display text-2xl font-bold text-white">Order Dispatched to Lab!</h3>
+                <p class="text-sm text-emerald-100/70 max-w-sm mx-auto">
+                    Your hardware order <span id="orderNumberDisplay" class="text-sky-400 font-mono font-semibold">#NX-84920</span> has been confirmed. Anti-static tracking details have been sent to your email.
+                </p>
+                <button onclick="finishOrder()" class="mt-2 px-6 py-2.5 rounded-xl bg-[#0b1410] hover:bg-[#0e1a14] border border-emerald-500/35 text-white text-sm font-semibold transition-colors">
+                    Continue Shopping
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <script>
+        // ==========================================
+        // PRODUCT CATALOG DATA (35 Kenyan Retail KSh Hardware & Upgrades)
+        // ==========================================
+        const FREE_DELIVERY_THRESHOLD_KES = 25000;
+        const DELIVERY_FEE_KES = 500;
+        // Bespoke High-Resolution SVG Fallback Generator per Hardware Category (Black & Green Dominant + Blue Accent)
+        function generateCategoryFallbackSVG(category, label) {
+            const palette = {
+                'GPUs': { accent: '#10b981', secondary: '#22c55e', tag: 'GRAPHICS ENGINE' },
+                'CPUs': { accent: '#22c55e', secondary: '#34d399', tag: 'SILICON CORE' },
+                'RAM & Storage': { accent: '#10b981', secondary: '#38bdf8', tag: 'HIGH-SPEED MEMORY' },
+                'Motherboards & Cooling': { accent: '#34d399', secondary: '#10b981', tag: 'SYSTEM ARCHITECTURE' },
+                'Power & Cases': { accent: '#10b981', secondary: '#22c55e', tag: 'CHASSIS & POWER' },
+                'Monitors': { accent: '#10b981', secondary: '#38bdf8', tag: 'ESPORTS DISPLAY' },
+                'Peripherals': { accent: '#22c55e', secondary: '#34d399', tag: 'PRO PERIPHERALS' },
+                'Audio & Streaming': { accent: '#10b981', secondary: '#38bdf8', tag: 'STUDIO AUDIO' },
+                'Consoles & VR': { accent: '#10b981', secondary: '#38bdf8', tag: 'NEXT-GEN GAMING' },
+                'Sim Racing & Setup': { accent: '#22c55e', secondary: '#10b981', tag: 'BATTLESTATION GEAR' }
+            };
+            const theme = palette[category] || { accent: '#10b981', secondary: '#22c55e', tag: 'NEXUS HARDWARE' };
+            const safeLabel = (label || category).replace(/[<>&"']/g, '').slice(0, 28);
+
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+                <defs>
+                    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#030605"/>
+                        <stop offset="55%" stop-color="#06140d"/>
+                        <stop offset="100%" stop-color="#030705"/>
+                    </linearGradient>
+                    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="${theme.accent}"/>
+                        <stop offset="100%" stop-color="${theme.secondary}"/>
+                    </linearGradient>
+                </defs>
+                <rect width="800" height="500" fill="url(#bg)"/>
+                <g stroke="#0b2418" stroke-width="1" opacity="0.75">
+                    <path d="M0 100 H800 M0 200 H800 M0 300 H800 M0 400 H800"/>
+                    <path d="M160 0 V500 M320 0 V500 M480 0 V500 M640 0 V500"/>
+                </g>
+                <circle cx="400" cy="220" r="110" fill="none" stroke="url(#glow)" stroke-width="3" opacity="0.85"/>
+                <circle cx="400" cy="220" r="76" fill="none" stroke="${theme.accent}" stroke-width="1.5" stroke-dasharray="10 8" opacity="0.9"/>
+                <rect x="362" y="182" width="76" height="76" rx="14" fill="#070d0a" stroke="url(#glow)" stroke-width="3"/>
+                <circle cx="400" cy="220" r="18" fill="url(#glow)"/>
+                <text x="400" y="372" text-anchor="middle" fill="${theme.secondary}" font-family="sans-serif" font-size="14" font-weight="700" letter-spacing="4">${theme.tag}</text>
+                <text x="400" y="405" text-anchor="middle" fill="#ecfdf5" font-family="sans-serif" font-size="24" font-weight="700">${safeLabel}</text>
+            </svg>`;
+            return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+        }
+
+        function handleImageError(imgEl, category, label) {
+            imgEl.onerror = null;
+            imgEl.src = generateCategoryFallbackSVG(category, label);
+        }
+
+        const products = [
+            // --- GPUs (4) ---
+            {
+                id: 'gpu-5090',
+                name: 'NVIDIA GeForce RTX 5090 Founders Edition 32GB',
+                category: 'GPUs',
+                brand: 'NVIDIA',
+                priceKES: 345000,
+                rating: 4.9,
+                reviews: 342,
+                badge: 'Flagship GPU',
+                badgeColor: 'purple',
+                image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=800&q=80',
+                specs: ['32GB GDDR7 VRAM (512-bit)', '21,760 CUDA Cores', 'DLSS 4 Multi-Frame Generation', 'PCIe 5.0 x16 Interface'],
+                description: 'The undisputed king of 4K and 8K ray-traced gaming. Engineered with next-gen Blackwell architecture and dual-flow vapor chamber cooling.'
+            },
+            {
+                id: 'gpu-5080',
+                name: 'ASUS ROG Strix GeForce RTX 5080 OC 16GB',
+                category: 'GPUs',
+                brand: 'ASUS ROG',
+                priceKES: 198000,
+                rating: 4.8,
+                reviews: 215,
+                badge: 'Hot Upgrade',
+                badgeColor: 'cyan',
+                image: 'https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=800&q=80',
+                specs: ['16GB GDDR7 High-Speed Memory', '2.78 GHz Boost Clock (OC Mode)', 'Axial-Tech Triple Fan Cooling', 'Aura Sync ARGB Shroud'],
+                description: 'Built for high-refresh 4K gaming with factory overclocked clocks, reinforced die-cast frame, and whisper-quiet acoustics.'
+            },
+            {
+                id: 'gpu-4070s',
+                name: 'MSI Gaming X Slim GeForce RTX 4070 SUPER 12GB',
+                category: 'GPUs',
+                brand: 'MSI',
+                priceKES: 104500,
+                rating: 4.8,
+                reviews: 412,
+                badge: '1440p Sweet Spot',
+                badgeColor: 'emerald',
+                image: 'https://images.unsplash.com/photo-1555618568-bdf0a992c512?auto=format&fit=crop&w=800&q=80',
+                specs: ['12GB GDDR6X (192-bit)', 'TRI FROZR 3 Thermal Design', 'DLSS 3.5 Ray Reconstruction', '220W Power Efficiency'],
+                description: 'Slim triple-fan powerhouse engineered for high-FPS 1440p ultra gaming while fitting effortlessly into compact mid-tower builds.'
+            },
+            {
+                id: 'gpu-7900xtx',
+                name: 'Sapphire NITRO+ AMD Radeon RX 7900 XTX 24GB',
+                category: 'GPUs',
+                brand: 'AMD Radeon',
+                priceKES: 158000,
+                rating: 4.7,
+                reviews: 268,
+                badge: '24GB VRAM Beast',
+                badgeColor: 'purple',
+                image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+                specs: ['24GB GDDR6 Memory (384-bit)', 'AMD RDNA 3 Architecture', 'Vapor-X Cooling Chamber', 'Dual BIOS + ARGB Light Bar'],
+                description: 'Massive 24GB frame buffer and raw rasterization horsepower built for 4K ultra textures, flight simulators, and local AI workloads.'
+            },
+
+            // --- CPUs (3) ---
+            {
+                id: 'cpu-9800x3d',
+                name: 'AMD Ryzen 7 9800X3D 8-Core Gaming Processor',
+                category: 'CPUs',
+                brand: 'AMD',
+                priceKES: 76500,
+                rating: 5.0,
+                reviews: 618,
+                badge: '#1 Gaming CPU',
+                badgeColor: 'emerald',
+                image: 'https://images.unsplash.com/photo-1555617981-dac3880eac6e?auto=format&fit=crop&w=800&q=80',
+                specs: ['8 Cores / 16 Threads (Zen 5)', '104MB Total Cache (2nd Gen 3D V-Cache)', 'Up to 5.2 GHz Max Boost', 'AM5 Socket • 120W TDP'],
+                description: 'The world’s fastest gaming processor featuring second-generation AMD 3D V-Cache technology for unmatched 1% low frame rates.'
+            },
+            {
+                id: 'cpu-285k',
+                name: 'Intel Core Ultra 9 285K Unlocked Desktop Processor',
+                category: 'CPUs',
+                brand: 'Intel',
+                priceKES: 92000,
+                rating: 4.7,
+                reviews: 184,
+                badge: '24-Core Flagship',
+                badgeColor: 'cyan',
+                image: 'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&w=800&q=80',
+                specs: ['24 Cores (8P + 16E) / 24 Threads', 'Up to 5.7 GHz Thermal Velocity Boost', 'Integrated Neural NPU Engine', 'LGA 1851 Socket'],
+                description: 'Blazing multi-threaded performance for simultaneous 4K streaming, 3D rendering, and high-refresh competitive gaming.'
+            },
+            {
+                id: 'cpu-7600x',
+                name: 'AMD Ryzen 5 7600X 6-Core AM5 Processor',
+                category: 'CPUs',
+                brand: 'AMD',
+                priceKES: 33500,
+                rating: 4.8,
+                reviews: 540,
+                badge: 'Best Value AM5',
+                badgeColor: 'emerald',
+                image: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?auto=format&fit=crop&w=800&q=80',
+                specs: ['6 Cores / 12 Threads (Zen 4)', 'Up to 5.3 GHz Max Boost Clock', 'PCIe 5.0 & DDR5 Support', 'Includes Radeon Graphics'],
+                description: 'The smart entry point into the upgradeable AM5 platform, delivering high clock speeds for esports and AAA titles without breaking the bank.'
+            },
+
+            // --- RAM & Storage (4) ---
+            {
+                id: 'ram-corsair32',
+                name: 'Corsair Vengeance RGB 32GB (2x16GB) DDR5-6000',
+                category: 'RAM & Storage',
+                brand: 'Corsair',
+                priceKES: 21500,
+                rating: 4.9,
+                reviews: 503,
+                badge: 'CL30 EXPO / XMP',
+                badgeColor: 'emerald',
+                image: 'https://images.unsplash.com/photo-1562976540-1502c2145186?auto=format&fit=crop&w=800&q=80',
+                specs: ['32GB (2 x 16GB) Dual-Channel Kit', 'DDR5-6000 MT/s • CL30 Low Latency', 'Dynamic 10-Zone RGB Lighting', 'AMD EXPO & Intel XMP 3.0 Ready'],
+                description: 'High-frequency DDR5 memory with onboard voltage regulation and ten individually addressable RGB LEDs controlled via iCUE.'
+            },
+            {
+                id: 'ram-gskill64',
+                name: 'G.Skill Trident Z5 Neo RGB 64GB DDR5-6000 Kit',
+                category: 'RAM & Storage',
+                brand: 'G.Skill',
+                priceKES: 36000,
+                rating: 4.9,
+                reviews: 289,
+                badge: '64GB Dual-Channel',
+                badgeColor: 'purple',
+                image: 'https://images.unsplash.com/photo-1541029071515-84cc54f84dc5?auto=format&fit=crop&w=800&q=80',
+                specs: ['64GB (2 x 32GB) DDR5-6000 MT/s', 'Ultra-Tight CL30-40-40-96 Timings', 'AMD EXPO Certified Aluminum Heatsink', 'Streamlined Light Bar RGB'],
+                description: 'Massive 64GB high-speed DDR5 capacity built for heavy modding, Unreal Engine 5 development, and extreme multitasking.'
+            },
+            {
+                id: 'ssd-990pro-2tb',
+                name: 'Samsung 990 PRO 2TB PCIe 4.0 NVMe M.2 SSD',
+                category: 'RAM & Storage',
+                brand: 'Samsung',
+                priceKES: 28500,
+                rating: 4.9,
+                reviews: 892,
+                badge: '7,450 MB/s Read',
+                badgeColor: 'cyan',
+                image: 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=800&q=80',
+                specs: ['2TB M.2 2280 Form Factor', 'Seq. Read up to 7,450 MB/s', 'Seq. Write up to 6,900 MB/s', 'PS5 & PC DirectStorage Ready'],
+                description: 'Near-max PCIe 4.0 bandwidth with nickel-coated thermal control—ideal as a primary OS/game drive or PlayStation 5 expansion.'
+            },
+            {
+                id: 'ssd-sn850x-4tb',
+                name: 'WD_BLACK SN850X 4TB PCIe Gen4 NVMe SSD',
+                category: 'RAM & Storage',
+                brand: 'WD_BLACK',
+                priceKES: 49500,
+                rating: 4.9,
+                reviews: 476,
+                badge: '4TB Game Vault',
+                badgeColor: 'emerald',
+                image: 'https://images.unsplash.com/photo-1531492746076-161ca9bcad58?auto=format&fit=crop&w=800&q=80',
+                specs: ['4TB High-Capacity M.2 2280 NVMe', 'Up to 7,300 MB/s Read Speed', 'Game Mode 2.0 Predictive Loading', 'DirectStorage & PS5 Compatible'],
+                description: 'Store over 80 AAA titles with zero compromise on load times using Western Digital’s flagship gaming NVMe drive.'
+            },
+
+            // --- Motherboards & Cooling (3) ---
+            {
+                id: 'mobo-x870e',
+                name: 'ASUS ROG Strix X870-E Gaming WiFi Motherboard',
+                category: 'Motherboards & Cooling',
+                brand: 'ASUS ROG',
+                priceKES: 74000,
+                rating: 4.8,
+                reviews: 164,
+                badge: 'WiFi 7 + USB4',
+                badgeColor: 'purple',
+                image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+                specs: ['AMD AM5 Socket (Ryzen 9000/8000/7000)', '18+2+2 Teamed Power Stages', '5x M.2 Slots (3x PCIe 5.0)', 'WiFi 7 + Dual USB4 40Gbps Ports'],
+                description: 'Enthusiast AM5 motherboard engineered for extreme overclocking, AI Overclocking, and ultra-fast PCIe 5.0 graphics and storage.'
+            },
+            {
+                id: 'mobo-b650-tomahawk',
+                name: 'MSI MAG B650 TOMAHAWK WIFI Motherboard',
+                category: 'Motherboards & Cooling',
+                brand: 'MSI',
+                priceKES: 34500,
+                rating: 4.8,
+                reviews: 632,
+                badge: 'AM5 Best Seller',
+                badgeColor: 'emerald',
+                image: 'https://images.unsplash.com/photo-1563770660941-20978e870e26?auto=format&fit=crop&w=800&q=80',
+                specs: ['AMD AM5 Socket • DDR5 up to 7600+ OC', '14+2+1 Duet Rail 80A Power System', 'Triple Lightning Gen4 M.2 + Heatsinks', 'WiFi 6E + 2.5G LAN + Audio Boost 5'],
+                description: 'Rock-solid thermal armor, 6-layer server-grade PCB, and rich connectivity make the B650 Tomahawk the top AM5 value board.'
+            },
+            {
+                id: 'cool-kraken360',
+                name: 'NZXT Kraken Elite 360 RGB AIO Liquid Cooler',
+                category: 'Motherboards & Cooling',
+                brand: 'NZXT',
+                priceKES: 46500,
+                rating: 4.9,
+                reviews: 319,
+                badge: '2.72" IPS LCD',
+                badgeColor: 'cyan',
+                image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=800&q=80',
+                specs: ['360mm High-Density Aluminum Radiator', 'Customizable 60Hz Wide-Angle IPS LCD', '3x F120 RGB Core Fans Included', 'AM5 & LGA 1851/1700 Brackets'],
+                description: 'Keep flagship CPUs icy under heavy loads while displaying real-time coolant temperatures or custom animated GIFs on the pump screen.'
+            },
+
+            // --- Power & Cases (3) ---
+            {
+                id: 'psu-rm1000x',
+                name: 'Corsair RM1000x 1000W 80+ Gold ATX 3.1 PSU',
+                category: 'Power & Cases',
+                brand: 'Corsair',
+                priceKES: 29500,
+                rating: 4.9,
+                reviews: 311,
+                badge: 'ATX 3.1 / PCIe 5.1',
+                badgeColor: 'emerald',
+                image: 'https://images.unsplash.com/photo-1587202372583-49330a15584d?auto=format&fit=crop&w=800&q=80',
+                specs: ['1000W Continuous Power Output', 'Native 12V-2x6 GPU Cable Included', '140mm Magnetic Dome Zero-RPM Fan', '100% 105°C Japanese Capacitors'],
+                description: 'Fully modular ATX 3.1 power supply built to handle transient power spikes from RTX 50-series GPUs with whisper-quiet operation.'
+            },
+            {
+                id: 'case-o11vision',
+                name: 'Lian Li O11 Vision Compact Dual-Chamber Case',
+                category: 'Power & Cases',
+                brand: 'Lian Li',
+                priceKES: 22500,
+                rating: 4.9,
+                reviews: 274,
+                badge: '3-Side Tempered Glass',
+                badgeColor: 'purple',
+                image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&w=800&q=80',
+                specs: ['Pillarless 3-Sided Tempered Glass View', 'Supports Back-Connect Motherboards', 'Up to 360mm Top/Side/Bottom Radiators', 'Tool-Free Modular Panels'],
+                description: 'Showcase every component and RGB fan unobstructed with Lian Li’s signature pillarless tempered-glass dual-chamber chassis.'
+            },
+            {
+                id: 'fan-lianli-slinf',
+                name: 'Lian Li UNI FAN SL-INFINITY 120 Triple Pack',
+                category: 'Power & Cases',
+                brand: 'Lian Li',
+                priceKES: 14500,
+                rating: 4.9,
+                reviews: 448,
+                badge: 'Daisy-Chain Infinity',
+                badgeColor: 'cyan',
+                image: 'https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=800&q=80',
+                specs: ['3x 120mm PWM ARGB Fans + Controller', 'Multi-Layer Infinity Mirror Hub & Sides', 'Cableless Pin-to-Pin Daisy-Chain Lock', '2100 RPM Max • 61.3 CFM Airflow'],
+                description: 'Eliminate cable clutter with interlocking daisy-chain connectors and mesmerizing infinity mirrors visible from every angle.'
+            },
+
+            // --- Monitors (2) ---
+            {
+                id: 'mon-rog360',
+                name: 'ASUS ROG Swift 27" 360Hz QD-OLED Gaming Monitor',
+                category: 'Monitors',
+                brand: 'ASUS ROG',
+                priceKES: 138000,
+                rating: 4.9,
+                reviews: 410,
+                badge: '360Hz • 0.03ms',
+                badgeColor: 'purple',
+                image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=800&q=80',
+                specs: ['2560 x 1440 QHD 3rd-Gen QD-OLED', '360Hz Native Refresh • 0.03ms GTG', 'Custom Heatsink + OLED Care+', 'G-SYNC Compatible & HDMI 2.1'],
+                description: 'Tournament-grade 360Hz speed meets true OLED blacks and HDR vibrancy for unmatched competitive clarity.'
+            },
+            {
+                id: 'mon-omen240',
+                name: 'HP OMEN 27qs 27" 240Hz QHD IPS Gaming Monitor',
+                category: 'Monitors',
+                brand: 'HP OMEN',
+                priceKES: 58500,
+                rating: 4.7,
+                reviews: 336,
+                badge: '240Hz Esports Value',
+                badgeColor: 'cyan',
+                image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80',
+                specs: ['2560 x 1440 QHD Fast IPS Panel', '240Hz Refresh Rate • 1ms GTG', '99% sRGB & 95% DCI-P3 Color', 'AMD FreeSync Premium + G-SYNC'],
+                description: 'Crisp 1440p resolution at a silky-smooth 240Hz refresh rate with height/pivot ergonomics and ambient aRGB backlighting.'
+            },
+
+            // --- Peripherals & Audio (10) ---
+            {
+                id: 'kb-wooting',
+                name: 'Wooting 60HE+ Magnetic Hall-Effect Keyboard',
+                category: 'Peripherals',
+                brand: 'Wooting',
+                priceKES: 31500,
+                rating: 5.0,
+                reviews: 734,
+                badge: 'Rapid Trigger',
+                badgeColor: 'purple',
+                image: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=800&q=80',
+                specs: ['Lekker Linear60 Hall-Effect Switches', '0.1mm - 4.0mm Adjustable Actuation', 'True Rapid Trigger & Analog Input', 'PBT Double-Shot Keycaps'],
+                description: 'The gold standard in competitive FPS keyboards. Instant key reset on release lets you counter-strafe faster than mechanically possible.'
+            },
+            {
+                id: 'kb-keychron-q1pro',
+                name: 'Keychron Q1 Pro QMK/VIA Custom Mechanical Keyboard',
+                category: 'Peripherals',
+                brand: 'Keychron',
+                priceKES: 27500,
+                rating: 4.9,
+                reviews: 419,
+                badge: 'CNC Aluminum 75%',
+                badgeColor: 'emerald',
+                image: 'https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=800&q=80',
+                specs: ['6063 CNC-Machined Full Aluminum Body', 'Double-Gasket Design + Acoustic Foam', 'Hot-Swappable K Pro Banana/Red Switches', 'Bluetooth 5.1 / USB-C + Programmable Knob'],
+                description: 'Enthusiast-grade 75% wireless custom mechanical keyboard with creamy acoustics, QMK/VIA remapping, and Mac/Windows keycaps.'
+            },
+            {
+                id: 'mouse-viper-v3pro',
+                name: 'Razer Viper V3 Pro Wireless Esports Mouse',
+                category: 'Peripherals',
+                brand: 'Razer',
+                priceKES: 23500,
+                rating: 4.9,
+                reviews: 512,
+                badge: '54g • 8KHz Dongle',
+                badgeColor: 'emerald',
+                image: 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=800&q=80',
+                specs: ['54g Symmetrical Pro Esports Shell', 'Focus Pro 35K Optical Sensor Gen-2', 'HyperPolling 8000 Hz Wireless Dongle', 'Optical Mouse Switches Gen-3 (90M Clicks)'],
+                description: 'Co-designed with world-champion esports pros for balanced 54-gram agility and true 8,000 Hz wireless polling responsiveness.'
+            },
+            {
+                id: 'mouse-attackshark',
+                name: 'Attack Shark X11 Ultra 8K Wireless Gaming Mouse',
+                category: 'Peripherals',
+                brand: 'Attack Shark',
+                priceKES: 8900,
+                rating: 4.8,
+                reviews: 467,
+                badge: '49g + Magnetic Dock',
+                badgeColor: 'emerald',
+                image: 'https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=800&q=80',
+                specs: ['PixArt PAW3395 Flagship Sensor (26,000 DPI)', '49g Featherweight Ergonomic Shell', 'Magnetic RGB Charging Dock Included', 'Tri-Mode: 2.4GHz / Bluetooth / USB-C'],
+                description: 'Pro-level wireless tracking at an ultra-light 49 grams, complete with a magnetic desktop charging dock and 80-million-click switches.'
+            },
+            {
+                id: 'headset-nova',
+                name: 'SteelSeries Arctis Nova Pro Wireless Headset',
+                category: 'Audio & Streaming',
+                brand: 'SteelSeries',
+                priceKES: 52000,
+                rating: 4.8,
+                reviews: 529,
+                badge: 'Active Noise Cancel',
+                badgeColor: 'cyan',
+                image: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?auto=format&fit=crop&w=800&q=80',
+                specs: ['Hi-Res Neodymium Magnetic Drivers', '4-Mic Hybrid Active Noise Cancellation', 'Infinity Power Dual Hot-Swap Batteries', 'Simultaneous 2.4GHz + Bluetooth'],
+                description: 'Pinpoint enemy footsteps with 360° Spatial Audio and never pause to charge thanks to the dual hot-swappable battery system.'
+            },
+            {
+                id: 'headset-hyperx-cloud3',
+                name: 'HyperX Cloud III Wireless Gaming Headset',
+                category: 'Audio & Streaming',
+                brand: 'HyperX',
+                priceKES: 16500,
+                rating: 4.8,
+                reviews: 684,
+                badge: '120-Hour Battery',
+                badgeColor: 'emerald',
+                image: 'https://images.unsplash.com/photo-1599669454699-248893623440?auto=format&fit=crop&w=800&q=80',
+                specs: ['Up to 120 Hours Battery Life', 'Angled 53mm Drivers + DTS Spatial Audio', 'Signature HyperX Memory Foam Ear Cushions', 'Detachable 10mm Clear-Voice Mic'],
+                description: 'Legendary Cloud comfort upgraded with 120-hour wireless stamina, durable aluminum frame, and crystal-clear team comms.'
+            },
+            {
+                id: 'headset-pulse-elite',
+                name: 'Sony PS5 Pulse Elite Wireless Headset',
+                category: 'Audio & Streaming',
+                brand: 'PlayStation',
+                priceKES: 20000,
+                rating: 4.7,
+                reviews: 358,
+                badge: 'Planar Magnetic',
+                badgeColor: 'cyan',
+                image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80',
+                specs: ['Studio-Inspired Planar Magnetic Drivers', 'PlayStation Link Ultra-Low Latency', 'AI-Enhanced Retractable Boom Mic', 'Charging Hanger + Dual-Device Audio'],
+                description: 'Audiophile planar magnetic drivers bring hyper-accurate 3D positional soundscapes to PS5, PC, Mac, and PlayStation Portal.'
+            },
+            {
+                id: 'ctrl-dualsense-edge',
+                name: 'Sony DualSense Edge Wireless Pro Controller',
+                category: 'Peripherals',
+                brand: 'PlayStation',
+                priceKES: 32500,
+                rating: 4.8,
+                reviews: 391,
+                badge: 'PC & PS5 Pro Pad',
+                badgeColor: 'cyan',
+                image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=800&q=80',
+                specs: ['Replaceable Stick Modules & Caps', 'Adjustable Hair-Trigger Stops', 'Mappable Rear Paddle Buttons', 'Haptic Feedback + Carrying Case'],
+                description: 'Built for high-performance PC and PS5 competitive play with swappable thumbstick modules, custom profiles, and braided locking USB cable.'
+            },
+            {
+                id: 'stream-deck',
+                name: 'Elgato Stream Deck MK.2 Studio Controller',
+                category: 'Audio & Streaming',
+                brand: 'Elgato',
+                priceKES: 24500,
+                rating: 4.9,
+                reviews: 612,
+                badge: '15 LCD Macro Keys',
+                badgeColor: 'purple',
+                image: 'https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=800&q=80',
+                specs: ['15 Customizable LCD Tactile Keys', 'One-Touch OBS, Discord & Spotify Control', 'Interchangeable Faceplate + 45° Stand', 'Multi-Actions & Smart Profiles'],
+                description: 'Command your stream, voice chat, lighting, and desktop macros with a single tap on customizable crisp LCD keys.'
+            },
+            {
+                id: 'mic-elgato-wave3',
+                name: 'Elgato Wave:3 USB Condenser Streaming Mic',
+                category: 'Audio & Streaming',
+                brand: 'Elgato',
+                priceKES: 21000,
+                rating: 4.8,
+                reviews: 495,
+                badge: 'Clipguard Anti-Distort',
+                badgeColor: 'cyan',
+                image: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=800&q=80',
+                specs: ['24-bit / 96kHz Cardioid Condenser Capsule', 'Proprietary Clipguard Distortion Protection', 'Wave Link Digital Mixing Software', 'Capacitive Mute Sensor + Multifunction Dial'],
+                description: 'Broadcast-grade vocal clarity with built-in anti-clipping circuitry and multi-channel audio routing for streamers and podcasters.'
+            },
+
+            // --- Consoles & VR (3) ---
+            {
+                id: 'console-ps5-pro',
+                name: 'PlayStation 5 Pro Digital Console 2TB',
+                category: 'Consoles & VR',
+                brand: 'PlayStation',
+                priceKES: 115000,
+                rating: 4.9,
+                reviews: 482,
+                badge: 'PSSR 4K • 2TB SSD',
+                badgeColor: 'purple',
+                image: 'https://images.unsplash.com/photo-1607853202273-797f1c22a38e?auto=format&fit=crop&w=800&q=80',
+                specs: ['67% More GPU Compute Units + PSSR AI Upscaling', '2TB Ultra-High-Speed Internal SSD', 'Advanced Ray Tracing & WiFi 7 Support', 'Includes DualSense Wireless Controller'],
+                description: 'Play PS5 titles at 60fps or up to 120fps with ray tracing and PlayStation Spectral Super Resolution sharpness on 4K displays.'
+            },
+            {
+                id: 'handheld-rog-ally-x',
+                name: 'ASUS ROG Ally X Handheld Gaming PC',
+                category: 'Consoles & VR',
+                brand: 'ASUS ROG',
+                priceKES: 125000,
+                rating: 4.8,
+                reviews: 329,
+                badge: '24GB RAM • 80Wh Battery',
+                badgeColor: 'cyan',
+                image: 'https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&w=800&q=80',
+                specs: ['AMD Ryzen Z1 Extreme Processor', '24GB LPDDR5X-7500 RAM + 1TB M.2 2280 SSD', '7" FHD 120Hz FreeSync Premium Touch Display', 'Massive 80Wh Battery + Dual USB4 Ports'],
+                description: 'Play your entire Steam, Xbox Game Pass, and Epic library anywhere with doubled battery capacity, 24GB RAM, and refined ergonomics.'
+            },
+            {
+                id: 'vr-meta-quest-3s',
+                name: 'Meta Quest 3S Mixed Reality Headset',
+                category: 'Consoles & VR',
+                brand: 'Meta',
+                priceKES: 54000,
+                rating: 4.8,
+                reviews: 394,
+                badge: 'Full-Color Mixed Reality',
+                badgeColor: 'emerald',
+                image: 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?auto=format&fit=crop&w=800&q=80',
+                specs: ['Snapdragon XR2 Gen 2 + 8GB RAM', 'Full-Color High-Definition Passthrough', 'Touch Plus Ringless Haptic Controllers', 'Standalone Wireless + PCVR Link Ready'],
+                description: 'Transform your living room into a mixed-reality arena or connect to your gaming PC for wireless Half-Life: Alyx and sim racing.'
+            },
+
+            // --- Sim Racing & Setup (3) ---
+            {
+                id: 'sim-logitech-g923',
+                name: 'Logitech G923 TRUEFORCE Racing Wheel & Pedals',
+                category: 'Sim Racing & Setup',
+                brand: 'Logitech G',
+                priceKES: 45000,
+                rating: 4.8,
+                reviews: 615,
+                badge: 'TRUEFORCE Haptics',
+                badgeColor: 'cyan',
+                image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80',
+                specs: ['TRUEFORCE High-Definition Force Feedback', 'Hand-Stitched Leather Wheel + Steel Shifters', 'Programmable Dual-Clutch Launch Control', 'Progressive Nonlinear Brake Pedal (PC / PS5)'],
+                description: 'Feel piston vibrations, tire grip, and road texture directly in your hands with 1000Hz TRUEFORCE physics feedback.'
+            },
+            {
+                id: 'net-rog-gtax6000',
+                name: 'ASUS ROG Rapture GT-AX6000 WiFi 6 Gaming Router',
+                category: 'Sim Racing & Setup',
+                brand: 'ASUS ROG',
+                priceKES: 42000,
+                rating: 4.8,
+                reviews: 287,
+                badge: 'Dual 2.5G Ports',
+                badgeColor: 'purple',
+                image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80',
+                specs: ['AX6000 Dual-Band WiFi 6 (160MHz)', 'Dual 2.5Gbps WAN/LAN Ports + Link Aggregation', 'Triple-Level Game Acceleration & QoS', '2.0GHz Quad-Core 64-Bit CPU + Aura RGB'],
+                description: 'Eliminate lag spikes and packet loss with dedicated gaming port prioritization, VPN Fusion, and ultra-wide WiFi 6 coverage.'
+            },
+            {
+                id: 'chair-secretlab-titan',
+                name: 'Secretlab TITAN Evo 2022 Series Gaming Chair',
+                category: 'Sim Racing & Setup',
+                brand: 'Secretlab',
+                priceKES: 78500,
+                rating: 4.9,
+                reviews: 842,
+                badge: '4-Way L-ADAPT Lumbar',
+                badgeColor: 'emerald',
+                image: 'https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=800&q=80',
+                specs: ['NEO Hybrid Leatherette / SoftWeave Plus', '4-Way Built-In L-ADAPT Lumbar Support', 'Magnetic Memory Foam Head Pillow', 'Full-Metal 4D Armrests + 165° Recline'],
+                description: 'Ergonomically sculpted cold-cure foam and dynamic 4-way lumbar support engineered for marathon gaming and studio sessions.'
+            }
+        ];
+
+        // ==========================================
+        // DYNAMIC CATEGORY BACKGROUND THEMES & CROSSFADE ENGINE (BLACK & GREEN DOMINANT + BLUE ACCENT)
+        // ==========================================
+        const categoryBackdrops = {
+            'All Gear': {
+                image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=2000&q=80',
+                hudLabel: 'ALL HARDWARE • EMERALD RIG',
+                dotClass: 'bg-emerald-400',
+                glow1: 'bg-emerald-500/25',
+                glow2: 'bg-green-500/20',
+                glow3: 'bg-sky-500/10'
+            },
+            'GPUs': {
+                image: 'https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=2000&q=80',
+                hudLabel: 'GRAPHICS CARDS (GPUs) • RTX ARCHITECTURE',
+                dotClass: 'bg-emerald-400',
+                glow1: 'bg-emerald-500/25',
+                glow2: 'bg-green-400/20',
+                glow3: 'bg-sky-500/10'
+            },
+            'CPUs': {
+                image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=2000&q=80',
+                hudLabel: 'PROCESSORS (CPUs) • SILICON CORE',
+                dotClass: 'bg-emerald-400',
+                glow1: 'bg-emerald-500/25',
+                glow2: 'bg-green-500/20',
+                glow3: 'bg-sky-400/10'
+            },
+            'RAM & Storage': {
+                image: 'https://images.unsplash.com/photo-1562976540-1502c2145186?auto=format&fit=crop&w=2000&q=80',
+                hudLabel: 'RAM & NVMe STORAGE • HIGH-SPEED BUS',
+                dotClass: 'bg-emerald-400',
+                glow1: 'bg-emerald-400/25',
+                glow2: 'bg-green-500/15',
+                glow3: 'bg-sky-500/12'
+            },
+            'Motherboards & Cooling': {
+                image: 'https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=2000&q=80',
+                hudLabel: 'MOTHERBOARDS & COOLING • LIQUID LOOP',
+                dotClass: 'bg-emerald-400',
+                glow1: 'bg-emerald-500/25',
+                glow2: 'bg-green-400/20',
+                glow3: 'bg-sky-500/10'
+            },
+            'Power & Cases': {
+                image: 'https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=2000&q=80',
+                hudLabel: 'POWER & CASES • CHASSIS AIRFLOW',
+                dotClass: 'bg-emerald-400',
+                glow1: 'bg-emerald-500/25',
+                glow2: 'bg-green-500/20',
+                glow3: 'bg-sky-500/10'
+            },
+            'Monitors': {
+                image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=2000&q=80',
+                hudLabel: 'ESPORTS MONITORS • 360Hz QD-OLED',
+                dotClass: 'bg-emerald-400',
+                glow1: 'bg-emerald-500/22',
+                glow2: 'bg-green-400/15',
+                glow3: 'bg-sky-500/15'
+            },
+            'Peripherals': {
+                image: 'https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=2000&q=80',
+                hudLabel: 'PRO PERIPHERALS • RAPID TRIGGER GEAR',
+                dotClass: 'bg-emerald-400',
+                glow1: 'bg-emerald-400/25',
+                glow2: 'bg-green-500/20',
+                glow3: 'bg-sky-500/10'
+            },
+            'Audio & Streaming': {
+                image: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=2000&q=80',
+                hudLabel: 'AUDIO & STREAMING • STUDIO BROADCAST',
+                dotClass: 'bg-emerald-400',
+                glow1: 'bg-emerald-500/22',
+                glow2: 'bg-green-400/18',
+                glow3: 'bg-sky-500/12'
+            },
+            'Consoles & VR': {
+                image: 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?auto=format&fit=crop&w=2000&q=80',
+                hudLabel: 'CONSOLES & VR • MIXED REALITY',
+                dotClass: 'bg-sky-400',
+                glow1: 'bg-emerald-500/22',
+                glow2: 'bg-green-500/15',
+                glow3: 'bg-sky-500/15'
+            },
+            'Sim Racing & Setup': {
+                image: 'https://images.unsplash.com/photo-1547394765-185e1e68f34e?auto=format&fit=crop&w=2000&q=80',
+                hudLabel: 'SIM RACING & SETUP • BATTLESTATION',
+                dotClass: 'bg-emerald-400',
+                glow1: 'bg-emerald-500/25',
+                glow2: 'bg-green-400/20',
+                glow3: 'bg-sky-500/10'
+            }
+        };
+
+        let activeBgBuffer = 'a';
+        let backdropIntensityMode = 'subtle'; // 'subtle' | 'vivid' | 'off'
+
+        function getBackdropOpacity() {
+            if (backdropIntensityMode === 'vivid') return '0.58';
+            if (backdropIntensityMode === 'off') return '0';
+            return '0.35';
+        }
+
+        function preloadCategoryBackdrops() {
+            Object.values(categoryBackdrops).forEach(entry => {
+                const img = new Image();
+                img.src = entry.image;
+            });
+        }
+
+        function updateCategoryBackground(category) {
+            const theme = categoryBackdrops[category] || categoryBackdrops['All Gear'];
+            const layerA = document.getElementById('bg-layer-a');
+            const layerB = document.getElementById('bg-layer-b');
+            const targetOpacity = getBackdropOpacity();
+
+            const incoming = activeBgBuffer === 'a' ? layerB : layerA;
+            const outgoing = activeBgBuffer === 'a' ? layerA : layerB;
+
+            // Crossfade only if image source actually changed
+            if (outgoing.dataset.currentUrl !== theme.image) {
+                incoming.dataset.currentUrl = theme.image;
+                incoming.src = theme.image;
+                incoming.style.opacity = targetOpacity;
+                outgoing.style.opacity = '0';
+                activeBgBuffer = activeBgBuffer === 'a' ? 'b' : 'a';
+            } else {
+                outgoing.style.opacity = targetOpacity;
+            }
+
+            // Update Ambient Glow Tints
+            document.getElementById('bg-glow-primary').className = `absolute -top-40 -left-40 w-[34rem] h-[34rem] ${theme.glow1} rounded-full blur-3xl transition-colors duration-700`;
+            document.getElementById('bg-glow-secondary').className = `absolute top-1/3 -right-40 w-[32rem] h-[32rem] ${theme.glow2} rounded-full blur-3xl transition-colors duration-700`;
+            document.getElementById('bg-glow-tertiary').className = `absolute bottom-0 left-1/3 w-[28rem] h-[28rem] ${theme.glow3} rounded-full blur-3xl transition-colors duration-700`;
+
+            // Update HUD Pill Status
+            const hudLabel = document.getElementById('backdropThemeLabel');
+            const hudDot = document.getElementById('backdropStatusDot');
+            if (hudLabel) hudLabel.textContent = theme.hudLabel;
+            if (hudDot) hudDot.className = `w-2 h-2 rounded-full ${theme.dotClass} animate-pulse shrink-0`;
+        }
+
+        function cycleBackdropIntensity() {
+            const order = ['subtle', 'vivid', 'off'];
+            const nextIdx = (order.indexOf(backdropIntensityMode) + 1) % order.length;
+            backdropIntensityMode = order[nextIdx];
+
+            const labelMap = { subtle: 'Subtle', vivid: 'Vivid', off: 'Off' };
+            const desktopBtn = document.getElementById('backdropIntensityBtn');
+            const mobileLabel = document.getElementById('mobileBackdropLabel');
+            const vignette = document.getElementById('bg-vignette-overlay');
+
+            if (desktopBtn) desktopBtn.textContent = labelMap[backdropIntensityMode];
+            if (mobileLabel) mobileLabel.textContent = `Backdrop: ${labelMap[backdropIntensityMode]}`;
+
+            if (vignette) {
+                if (backdropIntensityMode === 'vivid') {
+                    vignette.style.background = 'radial-gradient(circle at 50% 20%, rgba(3, 6, 5, 0.52) 0%, rgba(3, 6, 5, 0.82) 65%, rgba(3, 6, 5, 0.95) 100%)';
+                } else {
+                    vignette.style.background = 'radial-gradient(circle at 50% 20%, rgba(3, 6, 5, 0.72) 0%, rgba(3, 6, 5, 0.91) 65%, rgba(3, 6, 5, 0.98) 100%)';
+                }
+            }
+
+            const activeEl = activeBgBuffer === 'a' ? document.getElementById('bg-layer-a') : document.getElementById('bg-layer-b');
+            if (activeEl) activeEl.style.opacity = getBackdropOpacity();
+        }
+
+        // ==========================================
+        // APPLICATION STATE
+        // ==========================================
+        let state = {
+            selectedCategory: 'All Gear',
+            selectedBrand: 'ALL',
+            searchQuery: '',
+            cart: [], // Array of { productId, qty }
+            promoApplied: false
+        };
+
+        const categories = [
+            'All Gear',
+            'GPUs',
+            'CPUs',
+            'RAM & Storage',
+            'Motherboards & Cooling',
+            'Power & Cases',
+            'Monitors',
+            'Peripherals',
+            'Audio & Streaming',
+            'Consoles & VR',
+            'Sim Racing & Setup'
+        ];
+
+        // ==========================================
+        // KENYAN SHILLINGS (KSh) FORMATTING HELPER
+        // ==========================================
+        function formatPrice(kesAmount) {
+            return 'KSh ' + Math.round(kesAmount).toLocaleString('en-KE');
+        }
+
+        // ==========================================
+        // CATEGORY & FILTERING LOGIC
+        // ==========================================
+        function populateBrandFilter() {
+            const brandSelect = document.getElementById('brandSelect');
+            const uniqueBrands = [...new Set(products.map(p => p.brand))].sort();
+            brandSelect.innerHTML = `<option value="ALL">Brand: All (${uniqueBrands.length})</option>` +
+                uniqueBrands.map(b => `<option value="${b}">${b}</option>`).join('');
+        }
+
+        function renderCategoryTabs() {
+            const container = document.getElementById('categoryTabs');
+            container.innerHTML = categories.map(cat => {
+                const count = cat === 'All Gear'
+                    ? products.length
+                    : products.filter(p => p.category === cat).length;
+                const isActive = state.selectedCategory === cat;
+                const activeClasses = isActive 
+                    ? 'bg-gradient-to-r from-emerald-400 to-green-500 text-[#021209] font-bold shadow-md shadow-emerald-500/25 border-emerald-300' 
+                    : 'bg-[#070d0a]/92 text-emerald-100/75 hover:text-white hover:bg-[#0e1a14] border-emerald-500/20';
+                return `
+                    <button 
+                        onclick="filterCategory('${cat}')" 
+                        class="px-3.5 py-2 rounded-xl text-xs whitespace-nowrap border transition-all ${activeClasses}">
+                        ${cat} <span class="opacity-75">(${count})</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function filterCategory(category) {
+            state.selectedCategory = category;
+            updateCategoryBackground(category);
+            renderCategoryTabs();
+            renderProducts();
+        }
+
+        function resetFilters() {
+            state.selectedCategory = 'All Gear';
+            state.selectedBrand = 'ALL';
+            state.searchQuery = '';
+            document.getElementById('searchInput').value = '';
+            document.getElementById('mobileSearchInput').value = '';
+            document.getElementById('brandSelect').value = 'ALL';
+            document.getElementById('sortSelect').value = 'featured';
+            updateCategoryBackground('All Gear');
+            renderCategoryTabs();
+            renderProducts();
+        }
+
+        // ==========================================
+        // PRODUCT GRID RENDERING
+        // ==========================================
+        function getBadgeStyle(color) {
+            switch (color) {
+                case 'purple': return 'bg-sky-500/18 text-sky-300 border-sky-400/35';
+                case 'emerald': return 'bg-emerald-500/20 text-emerald-300 border-emerald-400/40';
+                default: return 'bg-green-500/20 text-green-300 border-green-400/40';
+            }
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            const emptyState = document.getElementById('emptyState');
+            const sortBy = document.getElementById('sortSelect').value;
+            const brandFilter = document.getElementById('brandSelect').value;
+            const query = state.searchQuery.toLowerCase().trim();
+
+            // Filter
+            let filtered = products.filter(p => {
+                const matchesCategory = state.selectedCategory === 'All Gear' || p.category === state.selectedCategory;
+                const matchesBrand = brandFilter === 'ALL' || p.brand === brandFilter;
+                const matchesSearch = !query || 
+                    p.name.toLowerCase().includes(query) || 
+                    p.brand.toLowerCase().includes(query) || 
+                    p.category.toLowerCase().includes(query) ||
+                    p.specs.some(s => s.toLowerCase().includes(query));
+                return matchesCategory && matchesBrand && matchesSearch;
+            });
+
+            // Sort
+            if (sortBy === 'price-asc') {
+                filtered.sort((a, b) => a.priceKES - b.priceKES);
+            } else if (sortBy === 'price-desc') {
+                filtered.sort((a, b) => b.priceKES - a.priceKES);
+            } else if (sortBy === 'rating') {
+                filtered.sort((a, b) => b.rating - a.rating);
+            }
+
+            document.getElementById('resultsCount').textContent = `Showing ${filtered.length} of ${products.length} items`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filtered.map(product => {
+                return `
+                    <article class="group relative flex flex-col bg-[#0b1410]/85 backdrop-blur-md border border-emerald-500/20 hover:border-emerald-400/60 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-500/12">
+                        <!-- Image Container -->
+                        <div class="relative h-48 bg-[#030605] overflow-hidden cursor-pointer" onclick="openQuickView('${product.id}')">
+                            <img 
+                                src="${product.image}" 
+                                alt="${product.name}" 
+                                loading="lazy"
+                                onerror="handleImageError(this, '${product.category.replace(/'/g, "\\'")}', '${product.brand.replace(/'/g, "\\'")}')"
+                                class="w-full h-full object-cover opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500"
+                            >
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#0b1410] via-transparent to-transparent opacity-85"></div>
+                            
+                            <!-- Top Badges -->
+                            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider border backdrop-blur-md ${getBadgeStyle(product.badgeColor)}">
+                                ${product.badge}
+                            </span>
+                            <button onclick="event.stopPropagation(); openQuickView('${product.id}')" title="Quick View Specs" class="absolute top-3 right-3 w-8 h-8 rounded-lg bg-[#030605]/85 hover:bg-emerald-400 text-emerald-200 hover:text-[#021209] border border-emerald-500/30 flex items-center justify-center transition-colors">
+                                <i data-lucide="eye" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Card Content -->
+                        <div class="flex-1 flex flex-col p-4">
+                            <div class="flex items-center justify-between text-[11px] text-emerald-200/60 mb-1">
+                                <span class="font-semibold text-emerald-400 uppercase tracking-wider">${product.brand}</span>
+                                <span class="flex items-center gap-1 text-emerald-300 font-semibold">
+                                    <i data-lucide="star" class="w-3.5 h-3.5 fill-emerald-400 text-emerald-400"></i>
+                                    ${product.rating} <span class="text-emerald-200/45 font-normal">(${product.reviews})</span>
+                                </span>
+                            </div>
+
+                            <h3 onclick="openQuickView('${product.id}')" class="font-bold text-emerald-50 text-sm sm:text-base leading-snug mb-2 group-hover:text-emerald-300 transition-colors cursor-pointer line-clamp-2">
+                                ${product.name}
+                            </h3>
+
+                            <!-- Key Spec Highlights -->
+                            <ul class="space-y-1 mb-4 text-xs text-emerald-100/65 flex-1">
+                                ${product.specs.slice(0, 2).map(spec => `
+                                    <li class="flex items-center gap-1.5 truncate">
+                                        <span class="w-1 h-1 rounded-full bg-emerald-400 shrink-0"></span>
+                                        <span class="truncate">${spec}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+
+                            <!-- Price & Add to Cart -->
+                            <div class="flex items-center justify-between pt-3 border-t border-emerald-500/20 gap-2">
+                                <div>
+                                    <span class="block text-[10px] text-emerald-200/50 uppercase">Price</span>
+                                    <span class="font-display text-lg sm:text-xl font-bold text-emerald-300">${formatPrice(product.priceKES)}</span>
+                                </div>
+                                <button 
+                                    onclick="addToCart('${product.id}')" 
+                                    class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-[#0e1a14] hover:bg-gradient-to-r hover:from-emerald-400 hover:to-green-500 text-emerald-300 hover:text-[#021209] font-bold text-xs border border-emerald-500/35 hover:border-transparent transition-all active:scale-95">
+                                    <i data-lucide="plus" class="w-4 h-4"></i>
+                                    <span>Add</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        // ==========================================
+        // QUICK-VIEW MODAL LOGIC
+        // ==========================================
+        function openQuickView(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const modal = document.getElementById('quickViewModal');
+            const content = document.getElementById('quickViewContent');
+
+            content.innerHTML = `
+                <div class="relative h-64 md:h-full bg-slate-950">
+                    <img 
+                        src="${product.image}" 
+                        alt="${product.name}" 
+                        onerror="handleImageError(this, '${product.category.replace(/'/g, "\\'")}', '${product.brand.replace(/'/g, "\\'")}')"
+                        class="w-full h-full object-cover"
+                    >
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent md:hidden"></div>
+                    <span class="absolute top-4 left-4 px-3 py-1 rounded-lg text-xs font-bold uppercase border backdrop-blur-md ${getBadgeStyle(product.badgeColor)}">
+                        ${product.badge}
+                    </span>
+                </div>
+                <div class="p-6 sm:p-8 flex flex-col justify-between space-y-5">
+                    <div>
+                        <div class="flex items-center gap-2 text-xs text-cyan-400 font-bold uppercase tracking-wider mb-1">
+                            <span>${product.brand}</span>
+                            <span>•</span>
+                            <span>${product.category}</span>
+                        </div>
+                        <h2 class="font-display text-2xl sm:text-3xl font-bold text-white leading-tight mb-2">${product.name}</h2>
+                        <div class="flex items-center gap-2 text-xs text-amber-400 mb-4">
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                            <span class="font-bold">${product.rating} / 5.0</span>
+                            <span class="text-slate-400">(${product.reviews} verified buyer reviews)</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+                            ${product.description}
+                        </p>
+                        <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-3.5">
+                            <h4 class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">Technical Specifications</h4>
+                            <ul class="space-y-1.5 text-xs text-slate-200">
+                                ${product.specs.map(s => `
+                                    <li class="flex items-center gap-2">
+                                        <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 shrink-0"></i>
+                                        <span>${s}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-800 gap-4">
+                        <div>
+                            <span class="block text-xs text-slate-400">Total Price</span>
+                            <span class="font-display text-2xl sm:text-3xl font-bold text-emerald-400">${formatPrice(product.priceKES)}</span>
+                        </div>
+                        <button onclick="addToCart('${product.id}'); closeQuickView();" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-400 text-slate-950 font-bold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all flex items-center gap-2">
+                            <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                            Add to Rig Cart
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeQuickView() {
+            const modal = document.getElementById('quickViewModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // ==========================================
+        // SHOPPING CART LOGIC
+        // ==========================================
+        function toggleCart(open) {
+            const drawer = document.getElementById('cartDrawer');
+            const overlay = document.getElementById('cartDrawerOverlay');
+            if (open) {
+                overlay.classList.remove('hidden');
+                drawer.classList.remove('translate-x-full');
+            } else {
+                overlay.classList.add('hidden');
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        function addToCart(productId) {
+            const existing = state.cart.find(item => item.productId === productId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                state.cart.push({ productId, qty: 1 });
+            }
+            const product = products.find(p => p.id === productId);
+            showToast(`Added ${product.name} to cart`);
+            renderCart();
+        }
+
+        function updateQuantity(productId, delta) {
+            const itemIndex = state.cart.findIndex(item => item.productId === productId);
+            if (itemIndex === -1) return;
+
+            state.cart[itemIndex].qty += delta;
+            if (state.cart[itemIndex].qty <= 0) {
+                state.cart.splice(itemIndex, 1);
+            }
+            renderCart();
+        }
+
+        function applyPromoCode() {
+            const input = document.getElementById('promoInput').value.trim().toUpperCase();
+            const feedback = document.getElementById('promoFeedback');
+            feedback.classList.remove('hidden');
+
+            if (input === 'NEXUS10' || input === 'GGWP') {
+                state.promoApplied = true;
+                feedback.textContent = '✓ Promo code applied! 10% esports discount unlocked.';
+                feedback.className = 'text-[11px] mt-1.5 text-emerald-400 font-medium';
+                renderCart();
+            } else {
+                state.promoApplied = false;
+                feedback.textContent = 'Invalid promo code. Try NEXUS10';
+                feedback.className = 'text-[11px] mt-1.5 text-rose-400';
+                renderCart();
+            }
+        }
+
+        function calculateTotals() {
+            const subtotalKES = state.cart.reduce((sum, item) => {
+                const product = products.find(p => p.id === item.productId);
+                return sum + (product ? product.priceKES * item.qty : 0);
+            }, 0);
+
+            const discountKES = state.promoApplied ? Math.round(subtotalKES * 0.10) : 0;
+            const shippingKES = (subtotalKES > 0 && subtotalKES < FREE_DELIVERY_THRESHOLD_KES) ? DELIVERY_FEE_KES : 0;
+            const totalKES = Math.max(0, subtotalKES - discountKES + shippingKES);
+
+            return { subtotalKES, discountKES, shippingKES, totalKES };
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartItemsContainer');
+            const footer = document.getElementById('cartFooter');
+            const badge = document.getElementById('cartBadge');
+
+            const totalItems = state.cart.reduce((sum, item) => sum + item.qty, 0);
+            badge.textContent = totalItems;
+
+            const { subtotalKES, discountKES, shippingKES, totalKES } = calculateTotals();
+            const progressPct = Math.min(100, Math.round((subtotalKES / FREE_DELIVERY_THRESHOLD_KES) * 100));
+            const remainingKES = Math.max(0, FREE_DELIVERY_THRESHOLD_KES - subtotalKES);
+
+            document.getElementById('deliveryProgressBar').style.width = `${progressPct}%`;
+            document.getElementById('deliveryProgressPct').textContent = `${progressPct}%`;
+            document.getElementById('deliveryProgressText').innerHTML = subtotalKES >= FREE_DELIVERY_THRESHOLD_KES
+                ? '<span class="text-emerald-400 font-semibold">✓ Unlocked FREE Same-Day Nairobi Delivery!</span>'
+                : `Add <strong class="text-white">${formatPrice(remainingKES)}</strong> more for FREE Nairobi delivery`;
+
+            if (state.cart.length === 0) {
+                footer.classList.add('hidden');
+                container.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center py-12">
+                        <div class="w-16 h-16 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-600 mb-3">
+                            <i data-lucide="cpu" class="w-8 h-8"></i>
+                        </div>
+                        <p class="font-bold text-slate-200 mb-1">Your rig cart is empty</p>
+                        <p class="text-xs text-slate-500 max-w-xs mb-5">Add GPUs, processors, consoles, or esports peripherals to start building your upgrade.</p>
+                        <button onclick="toggleCart(false)" class="px-5 py-2.5 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs">
+                            Browse Hardware
+                        </button>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            footer.classList.remove('hidden');
+            container.innerHTML = state.cart.map(item => {
+                const product = products.find(p => p.id === item.productId);
+                if (!product) return '';
+
+                return `
+                    <div class="flex gap-3.5 bg-slate-900/90 border border-slate-800 rounded-2xl p-3">
+                        <img 
+                            src="${product.image}" 
+                            alt="${product.name}" 
+                            onerror="handleImageError(this, '${product.category.replace(/'/g, "\\'")}', '${product.brand.replace(/'/g, "\\'")}')"
+                            class="w-16 h-16 rounded-xl object-cover bg-slate-950 shrink-0"
+                        >
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-xs font-bold text-slate-100 truncate">${product.name}</h4>
+                            <p class="text-[11px] text-cyan-400 font-semibold mt-0.5">${formatPrice(product.priceKES)} each</p>
+                            
+                            <div class="flex items-center justify-between mt-2.5">
+                                <div class="inline-flex items-center bg-slate-950 border border-slate-800 rounded-lg">
+                                    <button onclick="updateQuantity('${product.id}', -1)" class="px-2.5 py-1 text-slate-400 hover:text-white text-xs font-bold">-</button>
+                                    <span class="px-2 text-xs font-bold text-white">${item.qty}</span>
+                                    <button onclick="updateQuantity('${product.id}', 1)" class="px-2.5 py-1 text-slate-400 hover:text-white text-xs font-bold">+</button>
+                                </div>
+                                <span class="text-xs font-bold text-white">${formatPrice(product.priceKES * item.qty)}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('cartSubtotal').textContent = formatPrice(subtotalKES);
+            document.getElementById('cartShipping').textContent = shippingKES === 0 ? 'FREE' : formatPrice(shippingKES);
+            document.getElementById('cartTotal').textContent = formatPrice(totalKES);
+
+            const discountRow = document.getElementById('discountRow');
+            if (state.promoApplied && discountKES > 0) {
+                discountRow.classList.remove('hidden');
+                discountRow.classList.add('flex');
+                document.getElementById('cartDiscount').textContent = '-' + formatPrice(discountKES);
+            } else {
+                discountRow.classList.add('hidden');
+                discountRow.classList.remove('flex');
+            }
+
+            lucide.createIcons();
+        }
+
+        // ==========================================
+        // CHECKOUT FLOW
+        // ==========================================
+        function toggleMpesaPhone(show) {
+            const field = document.getElementById('mpesaPhoneField');
+            const input = document.getElementById('mpesaPhoneInput');
+            if (show) {
+                field.classList.remove('hidden');
+                input.required = true;
+            } else {
+                field.classList.add('hidden');
+                input.required = false;
+            }
+        }
+
+        function openCheckoutModal() {
+            toggleCart(false);
+            const { totalKES } = calculateTotals();
+            document.getElementById('checkoutAmountDue').textContent = formatPrice(totalKES);
+            document.getElementById('checkoutFormView').classList.remove('hidden');
+            document.getElementById('checkoutSuccessView').classList.add('hidden');
+
+            const modal = document.getElementById('checkoutModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeCheckoutModal() {
+            const modal = document.getElementById('checkoutModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+            const randomOrderNum = '#NX-' + Math.floor(10000 + Math.random() * 90000);
+            document.getElementById('orderNumberDisplay').textContent = randomOrderNum;
+            document.getElementById('checkoutFormView').classList.add('hidden');
+            document.getElementById('checkoutSuccessView').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function finishOrder() {
+            state.cart = [];
+            state.promoApplied = false;
+            document.getElementById('promoInput').value = '';
+            document.getElementById('promoFeedback').classList.add('hidden');
+            renderCart();
+            closeCheckoutModal();
+            showToast('Thank you for shopping with NEXUS RIGS!');
+        }
+
+        // ==========================================
+        // TOAST NOTIFICATIONS
+        // ==========================================
+        function showToast(message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'flex items-center gap-2.5 bg-[#070d0a]/95 backdrop-blur-md border border-emerald-400/45 text-emerald-50 px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold transform transition-all duration-300 translate-y-2 opacity-0';
+            toast.innerHTML = `
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 2600);
+        }
+
+        // ==========================================
+        // EVENT LISTENERS & INITIALIZATION
+        // ==========================================
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            state.searchQuery = e.target.value;
+            document.getElementById('mobileSearchInput').value = e.target.value;
+            renderProducts();
+        });
+
+        document.getElementById('mobileSearchInput').addEventListener('input', (e) => {
+            state.searchQuery = e.target.value;
+            document.getElementById('searchInput').value = e.target.value;
+            renderProducts();
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const initialLayer = document.getElementById('bg-layer-a');
+            if (initialLayer) initialLayer.dataset.currentUrl = categoryBackdrops['All Gear'].image;
+            preloadCategoryBackdrops();
+            updateCategoryBackground('All Gear');
+            populateBrandFilter();
+            renderCategoryTabs();
+            renderProducts();
+            renderCart();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
